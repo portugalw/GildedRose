@@ -4,90 +4,10 @@ namespace MeuAcerto.Selecao.KataGildedRose
 {
     class GildedRose
     {
-        IList<Item> Itens;
+        readonly IList<Item> Itens;
         public GildedRose(IList<Item> itens)
         {
             Itens = itens;
-        }
-
-        public void AtualizarQualidade2()
-        {
-            for (var i = 0; i < Itens.Count; i++)
-            {
-                if (Itens[i].Nome != "Queijo Brie Envelhecido" && Itens[i].Nome != "Ingressos para o concerto do TAFKAL80ETC")
-                {
-                    if (Itens[i].Qualidade > 0)
-                    {
-                        if (Itens[i].Nome == "Bolo de Mana Conjurado")
-                        {
-                            Itens[i].Qualidade -= 2;
-                        }
-                        else if (Itens[i].Nome != "Sulfuras, a Mão de Ragnaros")
-                        {
-                            Itens[i].Qualidade = Itens[i].Qualidade - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Itens[i].Qualidade < 50)
-                    {
-                        Itens[i].Qualidade = Itens[i].Qualidade + 1;
-
-                        if (Itens[i].Nome == "Ingressos para o concerto do TAFKAL80ETC")
-                        {
-                            if (Itens[i].PrazoValidade < 11)
-                            {
-                                if (Itens[i].Qualidade < 50)
-                                {
-                                    Itens[i].Qualidade = Itens[i].Qualidade + 1;
-                                }
-                            }
-
-                            if (Itens[i].PrazoValidade < 6)
-                            {
-                                if (Itens[i].Qualidade < 50)
-                                {
-                                    Itens[i].Qualidade = Itens[i].Qualidade + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (Itens[i].Nome != "Sulfuras, a Mão de Ragnaros")
-                {
-                    Itens[i].PrazoValidade = Itens[i].PrazoValidade - 1;
-                }
-
-                if (Itens[i].PrazoValidade < 0)
-                {
-                    if (Itens[i].Nome != "Queijo Brie Envelhecido")
-                    {
-                        if (Itens[i].Nome != "Ingressos para o concerto do TAFKAL80ETC")
-                        {
-                            if (Itens[i].Qualidade > 0)
-                            {
-                                if (Itens[i].Nome != "Sulfuras, a Mão de Ragnaros")
-                                {
-                                    Itens[i].Qualidade = Itens[i].Qualidade - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Itens[i].Qualidade = Itens[i].Qualidade - Itens[i].Qualidade;
-                        }
-                    }
-                    else
-                    {
-                        if (Itens[i].Qualidade < 50)
-                        {
-                            Itens[i].Qualidade = Itens[i].Qualidade + 1;
-                        }
-                    }
-                }
-            }
         }
 
         public void AtualizarQualidade()
@@ -97,6 +17,8 @@ namespace MeuAcerto.Selecao.KataGildedRose
             const string SULFURAS = "Sulfuras, a Mão de Ragnaros";
             const string CONJURADOS = "Bolo de Mana Conjurado";
             const int QUALIDADE_SULFURA = 80;
+
+            if (Itens == null) return;
 
             foreach(var item in Itens)
             { 
