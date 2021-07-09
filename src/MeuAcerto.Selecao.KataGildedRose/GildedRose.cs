@@ -103,30 +103,30 @@ namespace MeuAcerto.Selecao.KataGildedRose
                 switch (item.Nome)
                 {
                     case QUEIJO_BRIE:
-                        AtualizarQualidadeQueijoBrie(item);
+                        AtualizarQueijoBrie(item);
                         break;
                     case INGRESSOS:
-                        AtualizarQualidadeIngressos(item);
+                        AtualizarIngressos(item);
                         break;
                     case SULFURAS:
-                        AjustarQualidadeSulfuras(item, QUALIDADE_SULFURA);
+                        AjustarSulfuras(item, QUALIDADE_SULFURA);
                         break;
                     case CONJURADOS:
-                        AjustarQualidadeConjurados(item);
+                        AjustarConjurados(item);
                         break;
                     default:
-                        AjustarQualidadeDemaisItens(item);
+                        AjustarDemaisItens(item);
                         break;
                 }
             }
         }
 
-        private static void AjustarQualidadeSulfuras(Item item, int valorQualidade)
+        private static void AjustarSulfuras(Item item, int valorQualidade)
         {
             item.Qualidade = valorQualidade;
         }
 
-        private void AjustarQualidadeDemaisItens(Item item)
+        private void AjustarDemaisItens(Item item)
         {
             if (item.PrazoValidade <= 0)
             {
@@ -140,13 +140,13 @@ namespace MeuAcerto.Selecao.KataGildedRose
             item.PrazoValidade -= 1;
         }
 
-        private void AjustarQualidadeConjurados(Item item)
+        private void AjustarConjurados(Item item)
         {
             AjustarQualidade(item, -2);
             item.PrazoValidade -= 1;
         }
 
-        private void AtualizarQualidadeIngressos(Item item)
+        private void AtualizarIngressos(Item item)
         {
             if (item.PrazoValidade <= 0)
             {
@@ -168,7 +168,7 @@ namespace MeuAcerto.Selecao.KataGildedRose
             item.PrazoValidade -= 1;
         }
 
-        private void AtualizarQualidadeQueijoBrie(Item item)
+        private void AtualizarQueijoBrie(Item item)
         {
             if (item.PrazoValidade <= 0)
             {
