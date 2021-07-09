@@ -46,8 +46,7 @@ namespace MeuAcerto.Selecao.KataGildedRose
 					Console.WriteLine($"{item.Nome}, {item.PrazoValidade}, {item.Qualidade}");
 				}
 				Console.WriteLine(string.Empty);
-				//app.AtualizarQualidade();
-				app.AtualizarQualidade2();
+				app.AtualizarQualidade();
 
 				dia++;
 			}

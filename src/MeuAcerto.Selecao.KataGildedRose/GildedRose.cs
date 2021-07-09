@@ -10,7 +10,7 @@ namespace MeuAcerto.Selecao.KataGildedRose
             Itens = itens;
         }
 
-        public void AtualizarQualidade()
+        public void AtualizarQualidade2()
         {
             for (var i = 0; i < Itens.Count; i++)
             {
@@ -90,138 +90,96 @@ namespace MeuAcerto.Selecao.KataGildedRose
             }
         }
 
-        public void AtualizarQualidade2()
+        public void AtualizarQualidade()
         {
             const string QUEIJO_BRIE = "Queijo Brie Envelhecido";
             const string INGRESSOS = "Ingressos para o concerto do TAFKAL80ETC";
             const string SULFURAS = "Sulfuras, a Mão de Ragnaros";
             const string CONJURADOS = "Bolo de Mana Conjurado";
+            const int QUALIDADE_SULFURA = 80;
 
             foreach(var item in Itens)
             { 
                 switch (item.Nome)
-                { 
+                {
                     case QUEIJO_BRIE:
-
-                        if (item.PrazoValidade <= 0)
-                        {
-                            AjustarQualidade(item, 2);
-                        }
-                        else
-                        {
-                            AjustarQualidade(item, 1);
-                        }
-
-                        item.PrazoValidade -= 1;
-
+                        AtualizarQualidadeQueijoBrie(item);
                         break;
-
                     case INGRESSOS:
+                        AtualizarQualidadeIngressos(item);
+                        break;
                     case SULFURAS:
+                        AjustarQualidadeSulfuras(item, QUALIDADE_SULFURA);
                         break;
                     case CONJURADOS:
-                        AjustarQualidade(item, -2);
-                        item.PrazoValidade -= 1;
+                        AjustarQualidadeConjurados(item);
                         break;
                     default:
-                        if (item.PrazoValidade <= 0)
-                        {
-                            AjustarQualidade(item, -2);
-                        }
-                        else
-                        {
-                            AjustarQualidade(item, -1);
-                        }
-
-                        item.PrazoValidade -= 1;
+                        AjustarQualidadeDemaisItens(item);
                         break;
-
                 }
+            }
+        }
 
+        private static void AjustarQualidadeSulfuras(Item item, int valorQualidade)
+        {
+            item.Qualidade = valorQualidade;
+        }
+
+        private void AjustarQualidadeDemaisItens(Item item)
+        {
+            if (item.PrazoValidade <= 0)
+            {
+                AjustarQualidade(item, -2);
+            }
+            else
+            {
+                AjustarQualidade(item, -1);
             }
 
+            item.PrazoValidade -= 1;
+        }
 
+        private void AjustarQualidadeConjurados(Item item)
+        {
+            AjustarQualidade(item, -2);
+            item.PrazoValidade -= 1;
+        }
 
-            /*
-
-
-
-            for (var i = 0; i < Itens.Count; i++)
+        private void AtualizarQualidadeIngressos(Item item)
+        {
+            if (item.PrazoValidade <= 0)
             {
-                if (Itens[i].Nome != QUEIJO_BRIE && Itens[i].Nome != INGRESSOS)
-                {
-                    if (Itens[i].Qualidade > 0)
-                    {
-                        if (Itens[i].Nome == CONJURADOS)
-                        {
-                            Itens[i].Qualidade -= 2;
-                        }
-                        else if (Itens[i].Nome != SULFURAS)
-                        {
-                            Itens[i].Qualidade = Itens[i].Qualidade - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Itens[i].Qualidade < 50)
-                    {
-                        Itens[i].Qualidade = Itens[i].Qualidade + 1;
+                item.Qualidade = 0;
+            }
+            else if (item.PrazoValidade <= 5)
+            {
+                AjustarQualidade(item, 3);
+            }
+            else if (item.PrazoValidade <= 10)
+            {
+                AjustarQualidade(item, 2);
+            }
+            else
+            {
+                AjustarQualidade(item, 1);
+            }
 
-                        if (Itens[i].Nome == INGRESSOS)
-                        {
-                            if (Itens[i].PrazoValidade < 11)
-                            {
-                                if (Itens[i].Qualidade < 50)
-                                {
-                                    Itens[i].Qualidade = Itens[i].Qualidade + 1;
-                                }
-                            }
+            item.PrazoValidade -= 1;
+        }
 
-                            if (Itens[i].PrazoValidade < 6)
-                            {
-                                if (Itens[i].Qualidade < 50)
-                                {
-                                    Itens[i].Qualidade = Itens[i].Qualidade + 1;
-                                }
-                            }
-                        }
-                    }
-                }
+        private void AtualizarQualidadeQueijoBrie(Item item)
+        {
+            if (item.PrazoValidade <= 0)
+            {
+                AjustarQualidade(item, 2);
+            }
+            else
+            {
+                AjustarQualidade(item, 1);
+            }
 
-                if (Itens[i].Nome != SULFURAS)
-                {
-                    Itens[i].PrazoValidade = Itens[i].PrazoValidade - 1;
-                }
-
-                if (Itens[i].PrazoValidade < 0)
-                {
-                    if (Itens[i].Nome != QUEIJO_BRIE)
-                    {
-                        if (Itens[i].Nome != INGRESSOS)
-                        {
-                            if (Itens[i].Qualidade > 0)
-                            {
-                                if (Itens[i].Nome != SULFURAS)
-                                {
-                                    Itens[i].Qualidade = Itens[i].Qualidade - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Itens[i].Qualidade = Itens[i].Qualidade - Itens[i].Qualidade;
-                        }
-                    }
-                    else
-                    {
-                        if (Itens[i].Qualidade < 50)
-                        {
-                            Itens[i].Qualidade = Itens[i].Qualidade + 1;
-                        }
-                    }
-                }
-            }*/
+            item.PrazoValidade -= 1;
         }
 
         private void AjustarQualidade(Item item, int ajuste)

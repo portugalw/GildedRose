@@ -44,5 +44,20 @@ namespace MeuAcerto.Selecao.KataGildedRose
             }
             Assert.Equal(50, Items[0].Qualidade);
         }
+
+        [Fact]
+        public void ValidaSulfurasDevePermanecerImutavel80()
+        {
+            var dias = 60;
+            IList<Item> Items = new List<Item> { new Item { Nome = "Sulfuras, a Mão de Ragnaros", PrazoValidade = 10, Qualidade = 80 } };
+            GildedRose app = new GildedRose(Items);
+
+            while (dias != 0)
+            {
+                app.AtualizarQualidade();
+                dias--;
+            }
+            Assert.Equal(80, Items[0].Qualidade);
+        }
     }
 }
