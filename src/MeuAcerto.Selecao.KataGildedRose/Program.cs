@@ -31,23 +31,25 @@ namespace MeuAcerto.Selecao.KataGildedRose
 					PrazoValidade = 5,
 					Qualidade = 49
 				},
-				// Este item conjurado ainda não funciona direto!
 				new Item {Nome = "Bolo de Mana Conjurado", PrazoValidade = 3, Qualidade = 6}
 			};
 
 			var app = new GildedRose(itens);
+			var dia = 0;
 
-
-			for (var i = 0; i < 31; i++)
+			while (dia < 31)
 			{
-				Console.WriteLine("-------- dia " + i + " --------");
+				Console.WriteLine($"-------- dia {dia} --------");
 				Console.WriteLine("Nome, PrazoValidade, Qualidade");
-				for (var j = 0; j < itens.Count; j++)
+				foreach (var item in itens)
 				{
-					Console.WriteLine(itens[j].Nome + ", " + itens[j].PrazoValidade + ", " + itens[j].Qualidade);
+					Console.WriteLine($"{item.Nome}, {item.PrazoValidade}, {item.Qualidade}");
 				}
-				Console.WriteLine("");
-				app.AtualizarQualidade();
+				Console.WriteLine(string.Empty);
+				//app.AtualizarQualidade();
+				app.AtualizarQualidade2();
+
+				dia++;
 			}
 		}
 
